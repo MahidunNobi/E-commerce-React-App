@@ -9,10 +9,11 @@ const FilterContext = createContext()
 const initialState ={
     all_Products: [],
     filter_Products: [],
-    sort_By: "lowest-price"
+    sort_By: "lowest-price",
+    filter: {
+        text: ""
+    }
 }
-
-
 
 const FilterContextProvider =({children})=>{
 const [state, dispatch] = useReducer(FilterReducer, initialState)
@@ -29,13 +30,29 @@ const sorting=(e)=>{
         payload: products
     })
 }
+// Filter Function 
+const FilterFunction =(e)=>{
+    const name = e.target.name;
+    const value = e.target.value;
+    dispatch({
+        type: "Set-Search-Text",
+        payload: {name, value}
+    })
+    
+}
+useEffect(()=>{
+
+    dispatch({type: "Set-Filter-Data-By-Text"})
+    
+}, [state.filter])
 
 useEffect(()=>{
     
     dispatch({
         type: "Set-Data-By-Sort-Value",
         payload: [...products]
-    })
+    });
+    
 
 }, [state.sort_By])
 
@@ -46,7 +63,7 @@ useEffect(()=>{
     })
     
 }, [products])
-    return <FilterContext.Provider value={{...state, sorting}}> {children} </FilterContext.Provider>
+    return <FilterContext.Provider value={{...state, sorting, FilterFunction}}> {children} </FilterContext.Provider>
 
 }
 

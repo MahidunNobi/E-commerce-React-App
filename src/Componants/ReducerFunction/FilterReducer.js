@@ -11,24 +11,46 @@ export const FilterReducer = (state, action) => {
             };
         
         case  "Set-Data-By-Sort-Value":
+            const {filter_Products} = state
             let userSortByData
 
             if (state.sort_By === "lowest-price") {
-                userSortByData = action.payload.sort((a, b)=> a.price - b.price)
+                userSortByData = filter_Products.sort((a, b)=> a.price - b.price)
             }            
             else if (state.sort_By === "highest-price") {
-                userSortByData = action.payload.sort((a, b)=> b.price - a.price)
+                userSortByData = filter_Products.sort((a, b)=> b.price - a.price)
             }
              else if (state.sort_By === "a-z") {
-                userSortByData = action.payload.sort((a, b)=> a.name.localeCompare(b.name))
+                userSortByData = filter_Products.sort((a, b)=> a.name.localeCompare(b.name))
             }
             else if (state.sort_By === "z-a") {
-                userSortByData = action.payload.sort((a, b)=> b.name.localeCompare(a.name))
+                userSortByData = filter_Products.sort((a, b)=> b.name.localeCompare(a.name))
             }
             return {
                 ...state,
                 filter_Products: userSortByData
-            }
+            };
+        case "Set-Search-Text":
+            const {name , value} = action.payload
+            return{
+                ...state,
+                filter: {
+                    ...state.filter,
+                    [name]: value
+                }
+            };
+        case "Set-Filter-Data-By-Text":
+            const {text} = state.filter;
+            const temp_products = [...state.all_Products]
+            const finalFilterProducts = text ? 
+                                        temp_products.filter(pro=> pro.name.toLowerCase().includes(text)):
+                                        temp_products;
+            
+            
+            return {
+                ...state,            
+                filter_Products: finalFilterProducts
+            };
             
         
         default: 

@@ -5,18 +5,20 @@ import Product from '../Componants/LowLevelCom/Product'
 import HorizontalProduct from '../Componants/LowLevelCom/HorizontalProduct'
 import { useState } from 'react'
 import ProductTopRight from '../Componants/ProductTopRight'
+import Filter from '../Componants/Filter'
+
 const Products = () => {
 
     const {filter_Products} =  getFilterContext()
     const [grid, setGrid] = useState(false)
 
-    console.log(filter_Products);
+    
 
   return (
     <div>
     <div className='container mx-auto  mb-6 md:flex p-6'>
-        <div className="filterSection w-[20%] bg-gray-200">
-            <h3>FilterSection</h3>
+        <div className="filterSection w-[20%]">
+            <Filter/>
         </div>
 
         <div className="contentSection w-[80%] px-6">
