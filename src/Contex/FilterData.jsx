@@ -11,7 +11,9 @@ const initialState ={
     filter_Products: [],
     sort_By: "lowest-price",
     filter: {
-        text: ""
+        text: "",
+        category: "all",
+        company: "all"
     }
 }
 
@@ -40,21 +42,12 @@ const FilterFunction =(e)=>{
     })
     
 }
-useEffect(()=>{
 
-    dispatch({type: "Set-Filter-Data-By-Text"})
-    
-}, [state.filter])
 
-useEffect(()=>{
-    
-    dispatch({
-        type: "Set-Data-By-Sort-Value",
-        payload: [...products]
-    });
-    
-
-}, [state.sort_By])
+useEffect(()=>{    
+    dispatch({type: "Set-Filter-Data"})
+    dispatch({type: "Set-Data-By-Sort-Value"});
+}, [state.sort_By, state.filter])
 
 useEffect(()=>{
     dispatch({

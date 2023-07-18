@@ -30,26 +30,34 @@ export const FilterReducer = (state, action) => {
                 ...state,
                 filter_Products: userSortByData
             };
+        
         case "Set-Search-Text":
-            const {name , value} = action.payload
-            return{
-                ...state,
-                filter: {
-                    ...state.filter,
-                    [name]: value
-                }
-            };
-        case "Set-Filter-Data-By-Text":
-            const {text} = state.filter;
-            const temp_products = [...state.all_Products]
-            const finalFilterProducts = text ? 
-                                        temp_products.filter(pro=> pro.name.toLowerCase().includes(text)):
-                                        temp_products;
-            
+        const {name , value} = action.payload
+        return{
+            ...state,
+            filter: {
+                ...state.filter,
+                [name]: value
+            }
+        };
+        case "Set-Filter-Data":
+            const {text, category, company} = state.filter;
+            let temp_products = [...state.all_Products]
+            if(text){
+                temp_products = temp_products.filter(pro=> pro.name.toLowerCase().includes(text))
+            }
+            if(category){
+                category === "all" ? temp_products = temp_products
+                                    :
+                                    temp_products = temp_products.filter(pro => pro.category === category)
+            }
+            if(company !== "all"){
+                temp_products = temp_products.filter(pro => pro.company === company)
+            }
             
             return {
                 ...state,            
-                filter_Products: finalFilterProducts
+                filter_Products: temp_products
             };
             
         
