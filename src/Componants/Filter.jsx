@@ -1,7 +1,8 @@
 import React from 'react'
 import { getFilterContext } from '../Contex/FilterData'
 import CategotyFilter from './CategotyFilter'
-
+import CompanyFilter from './CompanyFilter'
+import ColorFilter from './ColorFilter'
 
 
 const Filter = () => {
@@ -19,33 +20,17 @@ const Filter = () => {
   }
   const all_Categories = getUniqueData(all_Products, "category")
   const all_Companies = getUniqueData(all_Products, "company")
-  const all_colors = getUniqueData(all_Products, "colors")
-
-  console.log(all_colors);
- 
+  const all_Colors = getUniqueData(all_Products, "colors")
 
   return (
     <div>
 
       <form action="" onSubmit={(e) => e.preventDefault()}>
         <input type="text" name='text' placeholder='Search' onChange={FilterFunction} className='w-full py-1 px-2 outline-none border border-gray-400 rounded-md' />  
-      </form>
-      <div className="categoryFilter my-6">
-          <h2 className='text-lg'>Category</h2>
-          <CategotyFilter all_Categories={all_Categories} />
-       </div>
-       <div className="company">
-        <form action="">
-          <h2 className='text-lg'> Company</h2>
-          <select name="company" id="" onChange={FilterFunction} className='w-full py-1 px-2 outline-none border border-gray-400 rounded-md cursor-pointer'>
-            {
-              all_Companies.map((c, i) => <option key={i} value={c} name="company"> {c.toUpperCase()} </option> )
-            }
-            
-
-          </select>
-        </form>
-       </div>
+      </form>      
+      <CategotyFilter all_Categories={all_Categories} />       
+       <CompanyFilter all_Companies={all_Companies} />
+       <ColorFilter all_Colors={all_Colors} />
 
     </div>
   )

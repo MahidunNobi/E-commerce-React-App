@@ -41,7 +41,7 @@ export const FilterReducer = (state, action) => {
             }
         };
         case "Set-Filter-Data":
-            const {text, category, company} = state.filter;
+            const {text, category, company, color} = state.filter;
             let temp_products = [...state.all_Products]
             if(text){
                 temp_products = temp_products.filter(pro=> pro.name.toLowerCase().includes(text))
@@ -53,6 +53,9 @@ export const FilterReducer = (state, action) => {
             }
             if(company !== "all"){
                 temp_products = temp_products.filter(pro => pro.company === company)
+            }
+            if(color !== "all"){
+                temp_products = temp_products.filter(pro => pro.colors.includes(color))
             }
             
             return {
