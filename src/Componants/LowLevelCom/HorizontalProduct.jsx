@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const HorizontalProduct = ({image, name, category, price, addToCart, id}) => {
   return (
+    <Link to={`/SingleProduct/${id}`}>
     <div className='w-[95%] flex justify-between border-b border-gray-400 py-6'>
         <div className=" w-[20%] flex items-center">            
                 <img className='w-full' src={image} alt="" />
@@ -17,6 +19,7 @@ const HorizontalProduct = ({image, name, category, price, addToCart, id}) => {
         </div>
 
     </div>
+    </Link>
   )
 }
 

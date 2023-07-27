@@ -1,7 +1,15 @@
 export const FilterReducer = (state, action) => {
+    
     switch (action.type){
         case "Load-All-Products":
-            return {...state,all_Products: [...action.payload], filter_Products: [...action.payload]}
+            const priceArr = action.payload.map(pro=> pro.price)
+            const maxPrice = Math.max(...priceArr)
+            
+            return {...state,
+                all_Products: [...action.payload], 
+                filter_Products: [...action.payload],
+                filter: {...state.filter, price: maxPrice, maxPrice: maxPrice}
+            }
             ;
 
         case "Sort-Products":
@@ -41,7 +49,7 @@ export const FilterReducer = (state, action) => {
             }
         };
         case "Set-Filter-Data":
-            const {text, category, company, color} = state.filter;
+            const {text, category, company, color, price} = state.filter;
             let temp_products = [...state.all_Products]
             if(text){
                 temp_products = temp_products.filter(pro=> pro.name.toLowerCase().includes(text))
@@ -57,11 +65,28 @@ export const FilterReducer = (state, action) => {
             if(color !== "all"){
                 temp_products = temp_products.filter(pro => pro.colors.includes(color))
             }
+            if(price){
+                temp_products = temp_products.filter(pro=> pro.price <= price)
+            }
             
             return {
                 ...state,            
                 filter_Products: temp_products
             };
+        case "Clear-Filters": 
+         return {
+            ...state,
+            filter: {
+                text: "",
+                category: "all",
+                company: "all",
+                color: "all",
+                price: state.filter.maxPrice,
+                maxPrice: state.filter.maxPrice,
+                minPrice: 0
+            }
+         }
+        
             
         
         default: 

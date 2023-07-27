@@ -19,7 +19,7 @@ const ProductTopRight = ({grid, setGrid}) => {
                 </div>
                 <p> {filter_Products.length} Items Available </p>
                 <div className="SortBy">
-                    <select name="sort" id="sort" className='sortSelect p-2 border-2 border-gray-300 rounded-lg outline-none cursor-pointer' onChange={sorting}>
+                    <select name="sort" id="sort" value={sort_By} className='sortSelect p-2 border-2 border-gray-300 rounded-lg outline-none cursor-pointer' onChange={sorting}>
                         <option value="lowest-price">Lowest Price</option>
                         <option value="highest-price">Highest Price</option>
                         <option value="a-z"> a-z</option>

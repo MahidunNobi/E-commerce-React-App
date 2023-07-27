@@ -14,7 +14,7 @@ let initialState =  {
     isError: false,
     products: [],
     featuredProducts: [],
-    isSingleProductLoading: false,
+    isSingleProductLoading: true,
     singleProductData: {}
 }
     const [allProducts, dispatch] = useReducer(reducerFunction, initialState)

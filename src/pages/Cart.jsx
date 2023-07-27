@@ -1,40 +1,33 @@
 import React from 'react'
 import SingleCart from '../Componants/LowLevelCom/SingleCart'
+import { useCartContext } from '../Contex/CartData'
 
-const Cart = ({cartItems, setCartItems}) => {
+const Cart = () => {
 
-  function increamentItemCount(id){
-    const updateData = cartItems.map(item => item.id === id ? {...item, itemsCount: item.itemsCount + 1} : item)
-    setCartItems(updateData);
-  }
-
-  function decreamentItemCount(id){
-    const FirstupdateData = cartItems.map(item => item.id === id ? {...item, itemsCount: item.itemsCount-1} : item)
-
-     const finalData = FirstupdateData.filter(i => i.itemsCount>0)
-
-
-     setCartItems(finalData)
-  }
-let totalPrice = 0;
-cartItems.forEach(i => {
-  const productPrice = i.itemsCount * i.price;
-  totalPrice += productPrice
-});
-
+  const { cart } = useCartContext()
 
   
   return (
-    <div>
+    <div className='container mx-auto my-6'>
+      <div className="title flex justify-between px-6">
+        <p className="font-semibold w-[20%] text-center"> Item </p>
+        <p className="font-semibold w-[20%] text-center hidden md:block"> Price </p>
+        <p className="font-semibold w-[20%] text-center"> Qualtity </p>
+        <p className="font-semibold w-[20%] text-center"> Total </p>
+        <p className="font-semibold w-[20%] text-center"> Delete </p>
+        
+      </div>
+      <hr />
       <div> 
-        { cartItems.length>0 ? 
-        cartItems.map(item => <SingleCart key={item.id} id={item.id} img={item.image} title={item.name} itemCount={item.itemsCount} category={item.category} price={item.price} increamentItemCount={increamentItemCount} decreamentItemCount={decreamentItemCount} />)  
+        { cart.length>0 ? 
+        cart.map(item => <SingleCart key={item.id} cartItem={item} />)  
         : 
         <h1 className="text-3xl"> You Nothing in Cart</h1> }
+        
     </div>
-    <div id="total" className='container mx-auto flex justify-end mb-10 pr-10'> 
+    <div id="total" className='flex justify-end mb-10 pr-10'> 
     
-       <div className='w-[20%] inline-block'>  <h3 className='uppercase text-xl text-gray-600'>Total: {totalPrice}$</h3>  </div>
+       {/* <div className='w-[20%] inline-block'>  <h3 className='uppercase text-xl text-gray-600'>Total: {totalPrice}$</h3>  </div> */}
 
     </div>
     </div>

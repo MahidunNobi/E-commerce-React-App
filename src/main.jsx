@@ -5,12 +5,14 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { AppProvider } from './Contex/ProductData.jsx'
 import { FilterContextProvider } from './Contex/FilterData.jsx'
-
+import {CartContextProvider} from "./Contex/CartData.jsx"
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <AppProvider> 
       <FilterContextProvider>
-        <App />
+        <CartContextProvider> 
+          <App />
+        </CartContextProvider>
       </FilterContextProvider>
       </AppProvider>
   </BrowserRouter>,

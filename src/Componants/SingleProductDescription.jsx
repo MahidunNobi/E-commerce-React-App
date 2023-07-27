@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTruck} from '@fortawesome/free-solid-svg-icons'
-
+import {AiOutlineCheck} from "react-icons/ai"
 import RatingsStar from './LowLevelCom/RatingsStar'
+import { useCartContext } from '../Contex/CartData'
+import { useProductData } from '../Contex/ProductData'
 
-const SingleProductDescription = ({name, description, reviews, stars, price, stock, company}) => {
+const SingleProductDescription = () => {
+
+const {singleProductData} = useProductData()
+const {
+  id,
+  name,
+  price,
+  description,
+  company,
+  reviews,
+  stars,
+  stock,
+  colors
+} = singleProductData
+  
+const [color, setColor] = useState(colors[0])
+const [itemCount, setItemCount] = useState(1)
+
+
+const {AddToCart} = useCartContext()
+
 
   return (
     <div className='xl:w-[50%] p-3 '>
@@ -14,8 +37,8 @@ const SingleProductDescription = ({name, description, reviews, stars, price, sto
             <span className='text-gray-400 text-sm'> ({reviews} customer review) </span>
         </div>
         <div className="prices mb-4">
-         <p> MRP. <del className=' text-gray-400'>BDT.{price + 1000}</del> </p>  
-         <p className='text-blue-500'> Deal of the day: BDT.{price}</p>
+         <p> MRP. <del className=' text-gray-400'>${price + 1000}</del> </p>  
+         <p className='text-blue-500'> Deal of the day: ${price}</p>
         </div>
         <div className="description text-gray-700">
           {description}
@@ -58,24 +81,37 @@ const SingleProductDescription = ({name, description, reviews, stars, price, sto
       {/*============ Colors Section================= */}
         <div className="colors flex items-center my-6"> 
         <p> Color:  </p>
-          <div className="colorDivs mt-[8px]"> 
-            <div className="red border-8 border-red-600 rounded-full inline-block mx-2 cursor-pointer"></div>
-            <div className="red border-8 border-blue-600 rounded-full inline-block mx-2 cursor-pointer"></div>
-            <div className="red border-8 border-green-600 rounded-full inline-block mx-2 cursor-pointer"></div>
+          <div className="colorDivs mt-[8px] flex space-x-2 ml-2"> 
+            { colors.map((clr, i)=>{
+              return ( 
+              <button 
+              key={i} 
+              onClick={() => setColor(clr)} 
+              style={{backgroundColor: clr}} 
+              className={`singleColor rounded-full h-[18px] w-[18px] flex justify-center items-center`} 
+              >
+              {color === clr && <AiOutlineCheck className=' text-white text-[15px] font-bold' />}
+
+              </button>
+              )
+            })}
+
           </div>
         </div>
       {/*============ Item Count Section================= */}
         <div className="ItemCount ">
           <div className="buttons flex bg-gray-400 w-[65px]"> 
-          <button className='bg-gray-200 px-2'>-</button>
-            <p className='mx-3'>1</p>
-          <button className='bg-gray-200 px-2'>+</button>
+          <button className='bg-gray-200 px-2' onClick={()=> itemCount > 1 && setItemCount(itemCount -1)}>-</button>
+            <p className='mx-3'>{itemCount}</p>
+          <button className='bg-gray-200 px-2' onClick={()=> setItemCount(itemCount + 1)}>+</button>
           </div>
         </div>
       {/*============ Add To Cart Btn Section================= */}
 
         <div id="addToCartBtn" className='my-6'>
-              <button className='w-full xl:w-auto px-6 py-2 text-center border-2 border-[#FF5733] text-[#FF5733] hover:text-white hover:bg-[#FF5733] duration-300'>Add To Cart</button>
+             <Link to="/cart"> 
+              <button onClick={()=>AddToCart(id, color, itemCount, singleProductData)} className='w-full xl:w-auto px-6 py-2 text-center border-2 border-[#FF5733] text-[#FF5733] hover:text-white hover:bg-[#FF5733] duration-300'>Add To Cart</button>
+             </Link>
         </div>
         
 

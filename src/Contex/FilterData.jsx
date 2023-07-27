@@ -9,12 +9,15 @@ const FilterContext = createContext()
 const initialState ={
     all_Products: [],
     filter_Products: [],
-    sort_By: "lowest-price",
+    sort_By: "highest-price",
     filter: {
         text: "",
         category: "all",
         company: "all",
-        color: "all"
+        color: "all",
+        price: 600000,
+        maxPrice: 0,
+        minPrice: 0
     }
 }
 
@@ -43,6 +46,12 @@ const FilterFunction =(e)=>{
     })
     
 }
+// Clear Filter Function 
+const ClearFilterFunction=()=>{
+    dispatch({
+        type: 'Clear-Filters'
+    })
+}
 
 
 useEffect(()=>{    
@@ -57,7 +66,7 @@ useEffect(()=>{
     })
     
 }, [products])
-    return <FilterContext.Provider value={{...state, sorting, FilterFunction}}> {children} </FilterContext.Provider>
+    return <FilterContext.Provider value={{...state, sorting, FilterFunction, ClearFilterFunction }}> {children} </FilterContext.Provider>
 
 }
 

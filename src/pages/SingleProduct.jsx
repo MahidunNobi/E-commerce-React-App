@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useProductData } from '../Contex/ProductData'
 import SingleProductDescription from '../Componants/SingleProductDescription'
@@ -13,25 +13,19 @@ const SingleProduct = () => {
 
   }, [])
   
-
-const {
-  name,
-  price,
-  description,
-  company,
-  image,
-  reviews,
-  stars,
-  stock,
-  color
+  const {
+ 
+  image
+  
 } = singleProductData
 
-
   return (
-    <div className='container mx-auto my-14 flex justify-between flex-col-reverse xl:flex-row'>
-      <SingleProductDescription name={name} price={price} description={description} reviews={reviews} stars={stars} stock={stock} color={color} company={company} />
+    <> 
+    {isSingleProductLoading ? (<h1> Loading-- </h1>) : (<div className='container mx-auto my-14 flex justify-between flex-col-reverse xl:flex-row'>
+      <SingleProductDescription />
       <SingleProductImages image={image} />
-    </div>
+    </div>) }
+    </>
   )
 }
 
