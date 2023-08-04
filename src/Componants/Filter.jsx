@@ -29,7 +29,7 @@ const Filter = () => {
     <div>
 
       <form action="" onSubmit={(e) => e.preventDefault()}>
-        <input type="text" name='text' placeholder='Search' value={filter.text} onChange={FilterFunction} className='w-full py-1 px-2 outline-none border border-gray-400 rounded-md' />  
+        <input type="text" name='text' placeholder='Search' value={filter.text} onChange={FilterFunction} className='w-full bg-transparent py-1 px-2 outline-none border lg:border-gray-400 border-white text-white lg:text-black lg:placeholder:text-gray-400 placeholder:text-white rounded-md' />  
       </form>      
       <CategotyFilter all_Categories={all_Categories} />       
        <CompanyFilter all_Companies={all_Companies} />

@@ -12,6 +12,7 @@ import Cart from "./pages/Cart"
 import { useProductData } from "./Contex/ProductData"
 import SingleProduct from "./pages/SingleProduct"
 import { getFilterContext } from "./Contex/FilterData"
+import About from "./pages/About"
 
 function App() {
 
@@ -23,11 +24,12 @@ function App() {
     <div>
       <Navbar />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/SingleProduct/:id" element={<SingleProduct />} />
-          <Route path="/products" element={<Products />}/>
+          <Route path="/" element={<Home />}/>
+          <Route path="about" element={<About />} />
           <Route path="cart" element={<Cart />}></Route>        
           <Route path="contact" element={<Contact  />}></Route>        
+          <Route path="products" element={<Products />}/>
+          <Route path="SingleProduct/:id" element={<SingleProduct />} />
           
           <Route path="*" element={<Error />} ></Route>
         </Routes>

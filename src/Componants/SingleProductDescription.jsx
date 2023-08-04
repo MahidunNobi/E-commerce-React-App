@@ -32,14 +32,19 @@ const {AddToCart} = useCartContext()
   return (
     <div className='xl:w-[50%] p-3 '>
         <h1 className='text-4xl mb-4'> {name}</h1>
+        {/*--------- Stars functionality--------- */}
         <div className="rating mb-4">        
           <RatingsStar stars={stars} />           
             <span className='text-gray-400 text-sm'> ({reviews} customer review) </span>
         </div>
+        {/*--------- Price functionality--------- */}
+
         <div className="prices mb-4">
          <p> MRP. <del className=' text-gray-400'>${price + 1000}</del> </p>  
          <p className='text-blue-500'> Deal of the day: ${price}</p>
         </div>
+        {/*--------- Description functionality--------- */}
+        
         <div className="description text-gray-700">
           {description}
         </div>
@@ -103,7 +108,7 @@ const {AddToCart} = useCartContext()
           <div className="buttons flex bg-gray-400 w-[65px]"> 
           <button className='bg-gray-200 px-2' onClick={()=> itemCount > 1 && setItemCount(itemCount -1)}>-</button>
             <p className='mx-3'>{itemCount}</p>
-          <button className='bg-gray-200 px-2' onClick={()=> setItemCount(itemCount + 1)}>+</button>
+          <button className='bg-gray-200 px-2' onClick={()=> itemCount < stock && setItemCount(itemCount + 1)}>+</button>
           </div>
         </div>
       {/*============ Add To Cart Btn Section================= */}
