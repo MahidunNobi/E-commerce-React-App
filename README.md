@@ -22,6 +22,7 @@ LIVE: https://tourmaline-platypus-e7d084.netlify.app/
 ## Tech Stack🔥
 
 **Client:** React, TailwindCSS
+
 **Product API:** https://api.pujakaitem.com/api/products
 
 
